@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.2
 
 # to build the image:
-# docker build --ssh github=$HOME/.ssh/gh_osx_ed25519 -f Dockerfile -t spr3 --no-cache . 
+# docker build --ssh github=$HOME/.ssh/gh_osx_ed25519 -f Dockerfile -t lab2 --no-cache . 
 
 FROM node:alpine
 
