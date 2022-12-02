@@ -1,21 +1,17 @@
-# syntax=docker/dockerfile:1.2
-
-# to build the image:
-# docker build --ssh github=$HOME/.ssh/gh_osx_ed25519 -f Dockerfile -t lab2 --no-cache . 
-
+# syntax=docker/dockerfile:1.4
+# Specify a base image
 FROM node:alpine
-
+WORKDIR /usr/app
+COPY package.json /
 # install ssh client and git
 RUN apk add --no-cache openssh-client git
+
 # download public key for github.com
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
-# clone our private repository
-
-WORKDIR /usr/app
-RUN --mount=type=ssh,id=github git clone git@github.com:PaulinaSulek/lab2.git .
-
+# clone private repository
+RUN --mount=type=ssh git clone git@github.com:PaulinaSulek/simpleweb.git lab2.v1
 RUN npm install
-EXPOSE 8080
-
+COPY ./ ./
 # Default command
 CMD ["npm", "start"]
+
